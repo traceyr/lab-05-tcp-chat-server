@@ -13,7 +13,7 @@ var server = net.createServer(function(socket){
   console.log(socket.nickname + ' has joined the network');
 
   socket.on('data', function(data){
-    broadcast(socket.nickname + '> ' + data);
+    broadcast(socket.nickname + '> ' + data, socket.id);
   });
 
   socket.on('data', function(data){
