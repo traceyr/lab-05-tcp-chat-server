@@ -1,19 +1,18 @@
 'use strict';
 
 const net = require('net');
-// debugger;
 
 var clients = [];
 
 var server = net.createServer(function(socket){
   var idNum = randomGen();
-  socket.id = 'user_' + idNum;
+  socket.id =  idNum;
   socket.nickname = 'guest-' + idNum;
   clients.push(socket);
   console.log(socket.nickname + ' has joined the network');
 
   socket.on('data', function(data){
-    broadcast(socket.nickname + '> ' + data, socket.id);
+    broadcast(socket.nickname + '> ' + data, socket.nickname);
   });
 
   socket.on('data', function(data){
@@ -33,7 +32,7 @@ var server = net.createServer(function(socket){
 
   function broadcast(msg, sender) {
     clients.forEach(function(client){
-      if (client === sender) return;
+      if (client.nickname === sender) return;
       client.write(msg);
     });
     process.stdout.write(msg);
