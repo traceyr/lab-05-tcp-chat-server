@@ -8,5 +8,11 @@
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-gulp-helpers": "0.0.3",
+    "gulp-mocha": "^2.2.0",
+    "mocha": "^2.5.3"
+  }
 }
