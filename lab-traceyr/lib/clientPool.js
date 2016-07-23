@@ -1,30 +1,23 @@
-//DOES NOT WORK. WORK IN PROGRESS
+'use strict';
 
 const EE = require('events');
-const net = require('net');
 
-
-function ClientPool(){
+module.exports = exports = function ClientPool(){
   this.ee = new EE();
   this.pool = {};
 
-  this.ee.on('register', (client) => {
-    var idNum = randomGen();
-    client.id = idNum;
-    client.nickname = 'guest-' + idNum;
-    this.pool[idNum] = client;
+  this.ee.on('register', (socket) => {
+    socket.write('Welcome to the CHAT\n');
+    var idNum = Math.floor(Math.random() * (10000 - 1) + 1);
+    socket.id = idNum;
+    socket.nickname = 'guest-' + idNum;
+    this.pool[socket.id] = socket;
   });
-}
-//
-// ee.on('data');
-// ee.on('error');
-// ee.on('end');
 
-//server.js folder
-var server = net.createServer(function(socket){
-  // ee.emit('register');
-});
-
-function randomGen() {
-  return Math.floor(Math.random() * (10000 - 1) + 1);
-}
+  this.ee.on('broadcast', (data, socket) =>{
+    for(var users in this.pool) {
+      if(this.pool[users.id] !== this.pool[socket.id])
+        this.pool[users].write(socket.nickname + '> ' + data.toString());
+    }
+  });
+};
