@@ -1,0 +1,12 @@
+{
+  "name": "tcp-server",
+  "version": "1.0.0",
+  "description": "-Once you download the file, in your root directory of this file, open node server.js in your terminal -In another terminal window open telnet localhost 3000 -In a third terminal window open telnet localhost 3000 -Use these two telnet windows to chat between each other",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
